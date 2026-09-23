@@ -1,0 +1,20 @@
+﻿# Phase 1 - Desktop AI Prototype dependencies
+# Use with Python 3.12 (pre-built wheels available)
+
+# LLM inference - pre-built CPU wheel for Windows/Python 3.12
+llama-cpp-python==0.2.90
+
+# System monitoring (RAM benchmarking)
+psutil==6.1.1
+
+# Progress bars
+tqdm==4.67.1
+
+# Pretty tables for benchmark output
+tabulate==0.9.0
+
+# Coloured console output (agent state display)
+colorama==0.4.6
+
+# Model downloading from HuggingFace
+huggingface_hub==0.27.1

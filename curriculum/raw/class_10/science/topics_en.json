@@ -1,0 +1,37 @@
+﻿[
+  {
+    "class_level": 10, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Chemical Reactions and Equations",
+    "topic": "Types of Chemical Reactions",
+    "content": "A chemical reaction converts reactants into products. Types: (1) Combination: A + B → AB (e.g. 2H₂ + O₂ → 2H₂O). (2) Decomposition: AB → A + B (e.g. 2H₂O → 2H₂ + O₂ by electrolysis). (3) Displacement: A + BC → AC + B (more reactive element displaces less reactive). (4) Double displacement: AB + CD → AD + CB (exchange of ions). (5) Oxidation-Reduction (Redox): oxidation = loss of electrons / gain of oxygen; reduction = gain of electrons / loss of oxygen. Exothermic reactions release heat; endothermic reactions absorb heat.",
+    "source_ref": "NCERT Class 10 Science Chapter 1"
+  },
+  {
+    "class_level": 10, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Acids, Bases and Salts",
+    "topic": "Properties of Acids and Bases",
+    "content": "Acids: taste sour, turn blue litmus red, pH < 7, release H⁺ ions in solution (e.g. HCl, H₂SO₄, HNO₃). Bases: taste bitter, feel soapy, turn red litmus blue, pH > 7, release OH⁻ ions (e.g. NaOH, KOH, Ca(OH)₂). Neutral substances: pH = 7 (e.g. water). Neutralisation: Acid + Base → Salt + Water. pH scale: 0–14. Strong acid: pH 0–3. Strong base: pH 11–14. Indicators: litmus, phenolphthalein, methyl orange. Universal indicator shows colour for each pH. Stomach acid (HCl) aids digestion; antacids neutralise excess acid.",
+    "source_ref": "NCERT Class 10 Science Chapter 2"
+  },
+  {
+    "class_level": 10, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Life Processes",
+    "topic": "Nutrition, Respiration and Transportation",
+    "content": "Nutrition: process of obtaining and using food. Autotrophs (plants) make food through photosynthesis: 6CO₂ + 6H₂O + light → C₆H₁₂O₆ + 6O₂. Heterotrophs (animals) eat other organisms. Digestion breaks food into simpler molecules. Respiration: Aerobic (with oxygen): glucose + oxygen → CO₂ + water + ATP (energy). Anaerobic (without oxygen): glucose → lactic acid or ethanol + CO₂ + less energy. Transportation: Heart pumps blood through arteries (away from heart) and veins (to heart). Capillaries exchange materials with cells. Double circulation in humans: pulmonary (heart-lungs) and systemic (heart-body).",
+    "source_ref": "NCERT Class 10 Science Chapter 6"
+  },
+  {
+    "class_level": 10, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Electricity",
+    "topic": "Ohm Law and Circuits",
+    "content": "Electric current (I) = charge / time. SI unit: Ampere (A). Potential difference (V) = work done / charge. SI unit: Volt (V). Resistance (R) opposes current flow. SI unit: Ohm (Ω). Ohm Law: V = IR (at constant temperature). Resistivity depends on material and temperature. Series circuit: same current through all; total R = R₁ + R₂ + ... Parallel circuit: same voltage across all; 1/R_total = 1/R₁ + 1/R₂ + ... Power P = VI = I²R = V²/R. SI unit: Watt (W). Electric energy = Power × time = VIt. Commercial unit: kilowatt-hour (kWh) = 1 unit of electricity.",
+    "source_ref": "NCERT Class 10 Science Chapter 12"
+  },
+  {
+    "class_level": 10, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Heredity and Evolution",
+    "topic": "Mendels Laws of Inheritance",
+    "content": "Gregor Mendel discovered the laws of inheritance using pea plants. Traits are controlled by factors (genes) that come in pairs (alleles). Law of Segregation: during gamete formation, the two alleles separate so each gamete carries one allele. Law of Independent Assortment: genes for different traits are inherited independently. Dominant allele (capital letter) expresses in both homozygous (AA) and heterozygous (Aa) state. Recessive allele (small letter) expresses only in homozygous recessive (aa) state. Genotype: genetic makeup. Phenotype: observable trait. Monohybrid cross (Aa × Aa) ratio: 3 dominant : 1 recessive.",
+    "source_ref": "NCERT Class 10 Science Chapter 9"
+  }
+]

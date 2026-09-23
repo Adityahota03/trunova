@@ -1,0 +1,51 @@
+﻿[
+  {
+    "class_level": 9, "subject": "mathematics", "language": "en",
+    "curriculum": "NCERT", "chapter": "Number Systems",
+    "topic": "Real Numbers and Number Line",
+    "content": "Natural numbers (N): 1, 2, 3, ... Whole numbers (W): 0, 1, 2, 3, ... Integers (Z): ..., -2, -1, 0, 1, 2, ... Rational numbers (Q): numbers expressible as p/q where p, q are integers and q ≠ 0. Irrational numbers: cannot be expressed as p/q — e.g. √2, π. Real numbers (R): all rational + irrational numbers. The number line represents all real numbers. Every real number can be represented on the number line. Between any two rational numbers, there are infinitely many rational numbers.",
+    "source_ref": "NCERT Class 9 Mathematics Chapter 1"
+  },
+  {
+    "class_level": 9, "subject": "mathematics", "language": "en",
+    "curriculum": "NCERT", "chapter": "Polynomials",
+    "topic": "Types and Degree of Polynomials",
+    "content": "A polynomial is an expression with variables and coefficients using addition, subtraction, multiplication, and non-negative integer exponents. Degree = highest power of variable. Monomial: one term. Binomial: two terms. Trinomial: three terms. Linear polynomial: degree 1 (e.g. 2x + 3). Quadratic polynomial: degree 2 (e.g. x² + 3x + 2). Cubic polynomial: degree 3 (e.g. x³ - 2x). Zero of a polynomial p(x): the value of x for which p(x) = 0. Factor theorem: (x - a) is a factor of p(x) if p(a) = 0.",
+    "source_ref": "NCERT Class 9 Mathematics Chapter 2"
+  },
+  {
+    "class_level": 9, "subject": "mathematics", "language": "en",
+    "curriculum": "NCERT", "chapter": "Coordinate Geometry",
+    "topic": "Cartesian Plane and Coordinates",
+    "content": "The Cartesian coordinate system uses two perpendicular number lines: x-axis (horizontal) and y-axis (vertical). Their intersection is the origin O(0, 0). Every point in the plane is identified by an ordered pair (x, y): x is the abscissa (horizontal distance), y is the ordinate (vertical distance). Four quadrants: Quadrant I (+, +), Quadrant II (-, +), Quadrant III (-, -), Quadrant IV (+, -). Points on x-axis: y = 0. Points on y-axis: x = 0.",
+    "source_ref": "NCERT Class 9 Mathematics Chapter 3"
+  },
+  {
+    "class_level": 9, "subject": "mathematics", "language": "en",
+    "curriculum": "NCERT", "chapter": "Linear Equations in Two Variables",
+    "topic": "Solutions and Graph of Linear Equations",
+    "content": "A linear equation in two variables has the form ax + by + c = 0, where a, b, c are real numbers and a, b are not both zero. A solution is an ordered pair (x, y) that satisfies the equation. A linear equation has infinitely many solutions. The graph of a linear equation is a straight line. Every point on the line is a solution; every solution gives a point on the line. x = k is a vertical line parallel to y-axis. y = k is a horizontal line parallel to x-axis.",
+    "source_ref": "NCERT Class 9 Mathematics Chapter 4"
+  },
+  {
+    "class_level": 9, "subject": "mathematics", "language": "en",
+    "curriculum": "NCERT", "chapter": "Triangles",
+    "topic": "Congruence of Triangles",
+    "content": "Two triangles are congruent if they have exactly the same shape and size — all corresponding sides and angles are equal. Congruence rules: SSS (side-side-side), SAS (side-angle-side), ASA (angle-side-angle), AAS (angle-angle-side), RHS (right angle-hypotenuse-side for right triangles). If two triangles are congruent, all their corresponding parts are equal (CPCT). Isoceles triangle theorem: angles opposite equal sides are equal.",
+    "source_ref": "NCERT Class 9 Mathematics Chapter 7"
+  },
+  {
+    "class_level": 9, "subject": "mathematics", "language": "en",
+    "curriculum": "NCERT", "chapter": "Circles",
+    "topic": "Properties of Circles",
+    "content": "A circle is the set of all points equidistant from a fixed centre point. Radius (r): distance from centre to circumference. Diameter (d) = 2r. Chord: line segment joining two points on circle. Diameter is the longest chord. Arc: part of circle's circumference. Semicircle: half the circle. Theorem: equal chords are equidistant from centre. Theorem: angle subtended by an arc at the centre is double the angle it subtends at any point on the remaining part of the circle. Angles in same segment of a circle are equal.",
+    "source_ref": "NCERT Class 9 Mathematics Chapter 10"
+  },
+  {
+    "class_level": 9, "subject": "mathematics", "language": "en",
+    "curriculum": "NCERT", "chapter": "Surface Areas and Volumes",
+    "topic": "Surface Area and Volume Formulae",
+    "content": "Cuboid: lateral SA = 2h(l+b), total SA = 2(lb+bh+hl), V = lbh. Cube: SA = 6a², V = a³. Cylinder: curved SA = 2πrh, total SA = 2πr(r+h), V = πr²h. Cone: l = √(r²+h²), curved SA = πrl, total SA = πr(r+l), V = ⅓πr²h. Sphere: SA = 4πr², V = ⁴⁄₃πr³. Hemisphere: curved SA = 2πr², total SA = 3πr², V = ⅔πr³. All lengths in same units before applying formulae.",
+    "source_ref": "NCERT Class 9 Mathematics Chapter 13"
+  }
+]

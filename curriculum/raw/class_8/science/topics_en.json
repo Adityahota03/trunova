@@ -1,0 +1,23 @@
+﻿[
+  {
+    "class_level": 8, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Crop Production and Management",
+    "topic": "Agricultural Practices",
+    "content": "Agriculture is the practice of growing crops and raising animals for food. Steps: preparation of soil (ploughing/tilling), sowing seeds (proper spacing for nutrients and sunlight), adding manure and fertilisers (manure = natural organic; fertilisers = chemical), irrigation (watering crops — methods: canal, well, tube-well, sprinkler, drip), weeding (removal of unwanted plants), harvesting (cutting mature crops), storage (protecting from pests and moisture). Kharif crops: sown in rainy season (June-July), harvested September-October (e.g. paddy, maize). Rabi crops: sown in winter (November-December), harvested March-April (e.g. wheat, gram).",
+    "source_ref": "NCERT Class 8 Science Chapter 1"
+  },
+  {
+    "class_level": 8, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Cell Structure and Functions",
+    "topic": "Cell Organelles",
+    "content": "Cell is the basic unit of life. All cells have: cell membrane, cytoplasm, nucleus. Plant cells additionally have: cell wall (made of cellulose, gives rigidity), large central vacuole (water storage), chloroplasts (contain chlorophyll for photosynthesis). Animal cells have: small vacuoles, no cell wall, centrioles (for cell division). Nucleus contains chromosomes (DNA) that carry genetic information. Mitochondria: energy production (ATP). Ribosomes: protein synthesis. Endoplasmic reticulum: transport network. Golgi apparatus: packaging and secretion.",
+    "source_ref": "NCERT Class 8 Science Chapter 8"
+  },
+  {
+    "class_level": 8, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Combustion and Flame",
+    "topic": "Types of Combustion and Fire",
+    "content": "Combustion is a chemical process in which a substance reacts with oxygen to give heat and light. Conditions: fuel + oxygen + heat (ignition temperature). Types: (1) Rapid combustion: burns quickly with heat and light (e.g. LPG). (2) Spontaneous combustion: ignites on its own without external heat (e.g. white phosphorus). (3) Explosion: rapid combustion with large amount of gas and energy released. Ignition temperature: minimum temperature to start burning. Fire triangle: fuel + heat + oxygen — remove any one to extinguish fire. Water extinguishes by cooling; CO₂ extinguisher cuts off oxygen.",
+    "source_ref": "NCERT Class 8 Science Chapter 6"
+  }
+]

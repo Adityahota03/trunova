@@ -1,0 +1,23 @@
+﻿[
+  {
+    "class_level": 7, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Nutrition in Plants",
+    "topic": "Photosynthesis",
+    "content": "Photosynthesis is the process by which green plants make food using sunlight, water, and carbon dioxide. Equation: 6CO₂ + 6H₂O + sunlight → C₆H₁₂O₆ (glucose) + 6O₂. Chlorophyll (green pigment) in leaves absorbs sunlight. Stomata (tiny pores on leaves) allow CO₂ to enter and O₂ to exit. Roots absorb water which travels to leaves through xylem. Glucose is used for energy and converted to starch for storage. Leaves are called the food factory of the plant. Photosynthesis produces oxygen that all living things need to breathe.",
+    "source_ref": "NCERT Class 7 Science Chapter 1"
+  },
+  {
+    "class_level": 7, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Nutrition in Animals",
+    "topic": "Digestion in Humans",
+    "content": "Digestion is the process of breaking down complex food into simpler substances the body can absorb. Digestive system organs: mouth (chewing + saliva), oesophagus (food pipe), stomach (gastric juice, churning), small intestine (main digestion + absorption — villi increase surface area), large intestine (water absorption, waste formation), rectum, anus. Enzymes break down: carbohydrates into glucose (amylase), proteins into amino acids (protease), fats into fatty acids + glycerol (lipase). Bile from liver emulsifies fats. Nutrients absorbed into blood through villi in small intestine.",
+    "source_ref": "NCERT Class 7 Science Chapter 2"
+  },
+  {
+    "class_level": 7, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Heat",
+    "topic": "Temperature, Heat Transfer and Thermometers",
+    "content": "Heat is a form of energy that flows from a hotter body to a cooler body. Temperature measures the degree of hotness — measured in Celsius (°C) or Kelvin (K). K = °C + 273. Thermometer measures temperature: clinical thermometer range 35°C–42°C; laboratory thermometer range –10°C to 110°C. Heat transfer methods: (1) Conduction — through solids (metals are good conductors; wood, plastic are insulators). (2) Convection — through liquids and gases (circular convection currents). (3) Radiation — without medium (heat from sun reaches Earth through space). Dark surfaces absorb/emit more radiation; light surfaces reflect more.",
+    "source_ref": "NCERT Class 7 Science Chapter 4"
+  }
+]

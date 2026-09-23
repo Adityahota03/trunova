@@ -1,0 +1,37 @@
+﻿[
+  {
+    "class_level": 6, "subject": "mathematics", "language": "en",
+    "curriculum": "NCERT", "chapter": "Knowing Our Numbers",
+    "topic": "Large Numbers and Place Value",
+    "content": "Numbers can be very large. The place value system helps us read and write large numbers. In the Indian system: ones, tens, hundreds, thousands, ten thousands, lakhs, ten lakhs, crores. In the International system: ones, tens, hundreds, thousands, ten thousands, hundred thousands, millions. 1 lakh = 100,000. 1 crore = 10,000,000 = 10 million.",
+    "source_ref": "NCERT Class 6 Mathematics Chapter 1"
+  },
+  {
+    "class_level": 6, "subject": "mathematics", "language": "en",
+    "curriculum": "NCERT", "chapter": "Whole Numbers",
+    "topic": "Properties of Whole Numbers",
+    "content": "Whole numbers are 0, 1, 2, 3, 4, ... They have important properties: Closure: sum/product of any two whole numbers is a whole number. Commutativity: a+b = b+a and a×b = b×a. Associativity: (a+b)+c = a+(b+c). Distributivity: a×(b+c) = a×b + a×c. 0 is the additive identity. 1 is the multiplicative identity.",
+    "source_ref": "NCERT Class 6 Mathematics Chapter 2"
+  },
+  {
+    "class_level": 6, "subject": "mathematics", "language": "en",
+    "curriculum": "NCERT", "chapter": "Playing with Numbers",
+    "topic": "Factors and Multiples",
+    "content": "A factor of a number divides it exactly with no remainder. 1 is a factor of every number. A multiple is obtained by multiplying a number by natural numbers. Every number is a multiple of itself. HCF (Highest Common Factor) is the largest factor shared by two numbers. LCM (Lowest Common Multiple) is the smallest multiple shared by two numbers. HCF × LCM = product of the two numbers.",
+    "source_ref": "NCERT Class 6 Mathematics Chapter 3"
+  },
+  {
+    "class_level": 6, "subject": "mathematics", "language": "en",
+    "curriculum": "NCERT", "chapter": "Basic Geometrical Ideas",
+    "topic": "Points, Lines, and Angles",
+    "content": "A point has no length, width, or height — it marks a position. A line extends infinitely in both directions. A line segment has two endpoints. A ray has one endpoint and extends infinitely in one direction. An angle is formed by two rays from a common point (vertex). Types of angles: acute (less than 90°), right (exactly 90°), obtuse (between 90° and 180°), straight (180°), reflex (between 180° and 360°).",
+    "source_ref": "NCERT Class 6 Mathematics Chapter 4"
+  },
+  {
+    "class_level": 6, "subject": "mathematics", "language": "en",
+    "curriculum": "NCERT", "chapter": "Fractions",
+    "topic": "Types of Fractions",
+    "content": "A fraction represents a part of a whole. Numerator is the top number; denominator is the bottom number. Proper fraction: numerator < denominator (e.g. 3/4). Improper fraction: numerator ≥ denominator (e.g. 5/3). Mixed fraction: whole number + proper fraction (e.g. 1²/₃). Like fractions have the same denominator. Unlike fractions have different denominators. To compare unlike fractions, find equivalent fractions with common denominator.",
+    "source_ref": "NCERT Class 6 Mathematics Chapter 7"
+  }
+]

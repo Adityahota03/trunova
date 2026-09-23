@@ -1,0 +1,86 @@
+﻿[
+  {
+    "class_level": 9, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Matter in Our Surroundings",
+    "topic": "States of Matter",
+    "content": "Matter exists in three states: solid, liquid, and gas. Solids have fixed shape and volume because particles are closely packed. Liquids have fixed volume but no fixed shape — they take the shape of their container. Gases have neither fixed shape nor fixed volume — they fill their entire container. Particles in gases move very fast and have maximum space between them. Melting point of ice is 0°C. Boiling point of water is 100°C at standard pressure.",
+    "source_ref": "NCERT Class 9 Science Chapter 1"
+  },
+  {
+    "class_level": 9, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Matter in Our Surroundings",
+    "topic": "Changes of State",
+    "content": "Melting (fusion): solid to liquid by heating. Freezing: liquid to solid by cooling. Vaporisation: liquid to gas (evaporation at surface, boiling throughout). Condensation: gas to liquid by cooling. Sublimation: solid directly to gas without becoming liquid (e.g. dry ice, camphor, iodine). The temperature at which a solid melts is its melting point. Latent heat is the heat absorbed or released during a change of state without temperature change.",
+    "source_ref": "NCERT Class 9 Science Chapter 1"
+  },
+  {
+    "class_level": 9, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Is Matter Around Us Pure?",
+    "topic": "Mixtures and Pure Substances",
+    "content": "A pure substance has a fixed composition throughout. A mixture is made of two or more substances combined in any proportion. Homogeneous mixture (solution): uniform composition — e.g. salt water, alloys. Heterogeneous mixture: non-uniform — e.g. soil, salad. Separation methods: filtration (insoluble solids from liquid), evaporation (dissolved solid from solution), distillation (liquids with different boiling points), chromatography (dissolved substances of different solubilities), magnetic separation (magnetic from non-magnetic).",
+    "source_ref": "NCERT Class 9 Science Chapter 2"
+  },
+  {
+    "class_level": 9, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Atoms and Molecules",
+    "topic": "Atoms, Molecules and Chemical Formulae",
+    "content": "An atom is the smallest particle of an element that can take part in a chemical reaction. A molecule is the smallest particle of a substance that can exist independently. Atomicity is the number of atoms in one molecule: monoatomic (He, Ar), diatomic (H₂, O₂, N₂, Cl₂), triatomic (O₃, H₂O), polyatomic (P₄, S₈). Chemical formula shows the elements in a compound and their ratio. H₂O (water): 2 hydrogen + 1 oxygen. CO₂ (carbon dioxide): 1 carbon + 2 oxygen. Molar mass = mass of 1 mole of a substance (6.022 × 10²³ particles, Avogadro number).",
+    "source_ref": "NCERT Class 9 Science Chapter 3"
+  },
+  {
+    "class_level": 9, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Structure of the Atom",
+    "topic": "Subatomic Particles and Atomic Models",
+    "content": "An atom consists of a nucleus (protons + neutrons) surrounded by electrons. Proton: positive charge, mass ≈ 1 u. Neutron: no charge, mass ≈ 1 u. Electron: negative charge, negligible mass. Atomic number = number of protons. Mass number = protons + neutrons. Isotopes: same atomic number, different mass numbers (e.g. C-12 and C-14). Bohr's model: electrons orbit nucleus in fixed shells (K, L, M, N). Maximum electrons per shell: K=2, L=8, M=18.",
+    "source_ref": "NCERT Class 9 Science Chapter 4"
+  },
+  {
+    "class_level": 9, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "The Fundamental Unit of Life",
+    "topic": "Cell Structure and Function",
+    "content": "The cell is the basic structural and functional unit of living organisms. Robert Hooke discovered cells in 1665. Cell theory: all living things are made of cells; cells come from pre-existing cells. Prokaryotic cells (bacteria) have no nucleus. Eukaryotic cells have a nucleus. Cell membrane (plasma membrane) separates inside from outside and controls what enters/exits. Cell wall (in plants, fungi) gives rigid shape. Nucleus contains DNA and controls cell activities. Mitochondria are the powerhouse of the cell — they produce ATP by cellular respiration. Chloroplasts (in plants) are sites of photosynthesis. Vacuoles store food, water, and waste.",
+    "source_ref": "NCERT Class 9 Science Chapter 5"
+  },
+  {
+    "class_level": 9, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Tissues",
+    "topic": "Plant and Animal Tissues",
+    "content": "A tissue is a group of cells with similar structure performing the same function. Plant tissues: meristematic (dividing cells at growing tips), permanent (non-dividing). Permanent tissues: simple (parenchyma — storage, photosynthesis; collenchyma — flexibility; sclerenchyma — strength/support) and complex (xylem — water transport; phloem — food transport). Animal tissues: epithelial (lining/covering), connective (bone, blood, cartilage, adipose), muscular (striated/skeletal, smooth/visceral, cardiac), nervous (sends signals).",
+    "source_ref": "NCERT Class 9 Science Chapter 6"
+  },
+  {
+    "class_level": 9, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Motion",
+    "topic": "Distance, Displacement, Speed and Velocity",
+    "content": "Motion: change in position of an object with time. Distance is the total path length — scalar (only magnitude). Displacement is the shortest straight-line distance between start and end points — vector (magnitude + direction). Speed = distance / time (scalar). Velocity = displacement / time (vector). Uniform motion: equal distances in equal time intervals. Non-uniform motion: unequal distances in equal time intervals. Average speed = total distance / total time. SI unit of speed/velocity: metre per second (m/s).",
+    "source_ref": "NCERT Class 9 Science Chapter 8"
+  },
+  {
+    "class_level": 9, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Motion",
+    "topic": "Acceleration and Equations of Motion",
+    "content": "Acceleration = change in velocity / time = (v - u) / t. SI unit: m/s². Positive acceleration: speeding up. Negative acceleration (deceleration/retardation): slowing down. Three equations of motion (uniform acceleration): (1) v = u + at; (2) s = ut + ½at²; (3) v² = u² + 2as. Where u = initial velocity, v = final velocity, a = acceleration, t = time, s = displacement. Graphical representation: distance-time graph (slope = speed); velocity-time graph (slope = acceleration, area under graph = displacement).",
+    "source_ref": "NCERT Class 9 Science Chapter 8"
+  },
+  {
+    "class_level": 9, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Force and Laws of Motion",
+    "topic": "Newton Laws of Motion",
+    "content": "Newton First Law (Law of Inertia): an object at rest stays at rest, and an object in motion stays in motion at constant velocity, unless acted upon by an external force. Inertia is the tendency to resist change in state. Newton Second Law: Force = mass × acceleration (F = ma). SI unit of force: Newton (N). 1 N = 1 kg·m/s². Newton Third Law: every action has an equal and opposite reaction. Momentum = mass × velocity (p = mv). Law of conservation of momentum: total momentum before collision = total momentum after collision (no external force).",
+    "source_ref": "NCERT Class 9 Science Chapter 9"
+  },
+  {
+    "class_level": 9, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Gravitation",
+    "topic": "Universal Law of Gravitation",
+    "content": "Newton Law of Universal Gravitation: every mass attracts every other mass with a force F = G × (m₁ × m₂) / r², where G is the universal gravitational constant = 6.674 × 10⁻¹¹ N·m²/kg², m₁ and m₂ are masses, r is the distance between them. Acceleration due to gravity (g) on Earth's surface ≈ 9.8 m/s². Weight = mass × g (W = mg). Weight is a force (measured in Newtons); mass is a scalar (measured in kg). Free fall: acceleration = g, air resistance ignored.",
+    "source_ref": "NCERT Class 9 Science Chapter 10"
+  },
+  {
+    "class_level": 9, "subject": "science", "language": "en",
+    "curriculum": "NCERT", "chapter": "Work and Energy",
+    "topic": "Work, Energy and Power",
+    "content": "Work is done when a force causes displacement in the direction of force: W = F × d × cos(θ). SI unit: Joule (J). No work if force is perpendicular to displacement. Kinetic energy (KE) = ½mv². Potential energy (PE): gravitational PE = mgh. Law of conservation of energy: energy cannot be created or destroyed, only converted. Total mechanical energy (KE + PE) is constant in absence of friction. Power = Work / Time. SI unit of power: Watt (W). 1 W = 1 J/s. 1 horsepower = 746 W.",
+    "source_ref": "NCERT Class 9 Science Chapter 11"
+  }
+]
