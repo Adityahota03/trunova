@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 curriculum/test_rag.py
 =======================
@@ -33,6 +33,7 @@ PROVE OFFLINE CAPABILITY: Run with airplane mode / Wi-Fi disabled.
 import os
 import sys
 import time
+import re
 import sqlite3
 import pathlib
 import argparse
@@ -52,8 +53,7 @@ except ImportError:
 try:
     from llama_cpp import Llama
 except ImportError:
-    print("llama-cpp-python not found. Run: pip install llama-cpp-python")
-    sys.exit(1)
+    Llama = None
 
 # ── Config ───────────────────────────────────────────────────────────────────
 BASE_DIR   = pathlib.Path(__file__).parent
@@ -92,6 +92,25 @@ def get_db(db_path: pathlib.Path) -> sqlite3.Connection:
     return con
 
 
+STOPWORDS = {
+    "what", "is", "are", "was", "were", "a", "an", "the", "in", "on", "of", "and", "or",
+    "to", "for", "with", "by", "from", "how", "why", "who", "which", "where", "when",
+    "can", "explain", "define", "tell", "me", "about", "give", "describe", "does", "do",
+    "kya", "hai", "ka", "ki", "ke", "ko", "se", "mein", "kisko", "kaise"
+}
+
+
+def build_safe_fts_query(user_query: str) -> str:
+    """Sanitize user query into safe FTS5 query tokens joined with OR."""
+    tokens = [w for w in re.findall(r"[\w\u0900-\u097f]+", user_query) if len(w) > 1]
+    keywords = [t for t in tokens if t.lower() not in STOPWORDS]
+    if not keywords:
+        keywords = tokens
+    if not keywords:
+        return ""
+    return " OR ".join(f'"{kw}"' for kw in keywords)
+
+
 def search_fts(
     con: sqlite3.Connection,
     query: str,
@@ -104,9 +123,8 @@ def search_fts(
     FTS5 search with optional filters on class_level, subject, language.
     Returns list of matching curriculum records, ordered by FTS relevance.
     """
-    # Build WHERE clause for structured filters on the base table
     filters = ["cc.language = ?"]
-    params  = [language]
+    params: list = [language]
 
     if class_level is not None:
         filters.append("cc.class_level = ?")
@@ -118,47 +136,78 @@ def search_fts(
 
     where = " AND ".join(filters)
 
-    sql = f"""
-        SELECT
-            cc.id, cc.class_level, cc.subject, cc.language,
-            cc.curriculum, cc.chapter, cc.topic, cc.content, cc.source_ref,
-            rank
-        FROM curriculum_fts
-        JOIN curriculum_content cc ON curriculum_fts.rowid = cc.rowid
-        WHERE curriculum_fts MATCH ?
-          AND {where}
-        ORDER BY rank
-        LIMIT ?
-    """
-    params_full = [query] + params + [top_k]
-    try:
-        rows = con.execute(sql, params_full).fetchall()
-        return [dict(r) for r in rows]
-    except sqlite3.OperationalError as e:
-        cprint(Fore.YELLOW, "WARN", f"FTS error: {e}. Falling back to LIKE search.")
-        return fallback_search(con, query, class_level, subject, language, top_k)
+    fts_query = build_safe_fts_query(query)
+    if fts_query:
+        sql = f"""
+            SELECT
+                cc.id, cc.class_level, cc.subject, cc.language,
+                cc.curriculum, cc.chapter, cc.topic, cc.content, cc.source_ref,
+                rank
+            FROM curriculum_fts
+            JOIN curriculum_content cc ON curriculum_fts.rowid = cc.rowid
+            WHERE curriculum_fts MATCH ?
+              AND {where}
+            ORDER BY rank
+            LIMIT ?
+        """
+        try:
+            rows = con.execute(sql, [fts_query] + params + [top_k]).fetchall()
+            if rows:
+                return [dict(r) for r in rows]
+        except sqlite3.OperationalError as e:
+            cprint(Fore.YELLOW, "WARN", f"FTS error: {e}. Falling back to LIKE search.")
+
+    return fallback_search(con, query, class_level, subject, language, top_k)
 
 
 def fallback_search(
-    con, query, class_level, subject, language, top_k
+    con: sqlite3.Connection,
+    query: str,
+    class_level: int | None = None,
+    subject: str | None = None,
+    language: str = "en",
+    top_k: int = TOP_K,
 ) -> list[dict]:
-    """LIKE-based fallback when FTS query syntax is invalid."""
+    """LIKE-based fallback when FTS query syntax is invalid or returns nothing."""
     filters = ["language = ?"]
-    params  = [language]
-    if class_level: filters.append("class_level = ?"); params.append(class_level)
-    if subject:     filters.append("subject = ?");     params.append(subject.lower())
-    for word in query.split()[:3]:
-        filters.append("content LIKE ?")
-        params.append(f"%{word}%")
+    params: list = [language]
+
+    if class_level is not None:
+        filters.append("class_level = ?")
+        params.append(class_level)
+
+    if subject is not None:
+        filters.append("subject = ?")
+        params.append(subject.lower())
+
+    tokens = [w for w in re.findall(r"[\w\u0900-\u097f]+", query) if len(w) > 1]
+    keywords = [t for t in tokens if t.lower() not in STOPWORDS] or tokens
+
+    if not keywords:
+        return []
+
+    like_clauses = []
+    for kw in keywords[:5]:
+        like_clauses.append("(content LIKE ? OR topic LIKE ? OR chapter LIKE ?)")
+        params.extend([f"%{kw}%", f"%{kw}%", f"%{kw}%"])
+
     where = " AND ".join(filters)
-    sql   = f"SELECT * FROM curriculum_content WHERE {where} LIMIT ?"
+    if like_clauses:
+        where += f" AND ({' OR '.join(like_clauses)})"
+
+    sql = f"SELECT * FROM curriculum_content WHERE {where} LIMIT ?"
     params.append(top_k)
-    rows  = con.execute(sql, params).fetchall()
+    rows = con.execute(sql, params).fetchall()
     return [dict(r) for r in rows]
 
 
 # ── LLM ──────────────────────────────────────────────────────────────────────
 def load_model() -> Llama:
+    if Llama is None:
+        cprint(Fore.RED, "ERROR", "llama-cpp-python not found.")
+        cprint(Fore.YELLOW, "FIX", "Run: pip install llama-cpp-python")
+        sys.exit(1)
+
     model_path_env = os.environ.get("MODEL_PATH")
     if model_path_env:
         candidates = [pathlib.Path(model_path_env)]

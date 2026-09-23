@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 curriculum/agent.py
 ====================
@@ -46,8 +46,7 @@ except ImportError:
 try:
     from llama_cpp import Llama
 except ImportError:
-    print("llama-cpp-python not found. Run: pip install llama-cpp-python")
-    sys.exit(1)
+    Llama = None
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 BASE_DIR    = pathlib.Path(__file__).parent
@@ -62,6 +61,24 @@ DEFAULT_MODELS = [
 ]
 
 N_CTX = 2048; N_GPU_LAYERS = 0; MAX_TOKENS = 300; TOP_K = 5
+
+STOPWORDS = {
+    "what", "is", "are", "was", "were", "a", "an", "the", "in", "on", "of", "and", "or",
+    "to", "for", "with", "by", "from", "how", "why", "who", "which", "where", "when",
+    "can", "explain", "define", "tell", "me", "about", "give", "describe", "does", "do",
+    "kya", "hai", "ka", "ki", "ke", "ko", "se", "mein", "kisko", "kaise"
+}
+
+
+def build_safe_fts_query(user_query: str) -> str:
+    """Sanitize user query into safe FTS5 query tokens joined with OR."""
+    tokens = [w for w in re.findall(r"[\w\u0900-\u097f]+", user_query) if len(w) > 1]
+    keywords = [t for t in tokens if t.lower() not in STOPWORDS]
+    if not keywords:
+        keywords = tokens
+    if not keywords:
+        return ""
+    return " OR ".join(f'"{kw}"' for kw in keywords)
 
 
 # ── State machine ─────────────────────────────────────────────────────────────
@@ -132,66 +149,87 @@ class LearningAgent:
         t = time.time()
         # Detect language hint
         hi_chars = sum(1 for c in ctx.question if '\u0900' <= c <= '\u097f')
-        if hi_chars > 2:
+        if hi_chars > 2 and ctx.language == "en":
             ctx.language = "hi"
 
-        # Detect class level from question
-        m = re.search(r'\bclass\s*(\d+)\b|\bकक्षा\s*(\d+)\b', ctx.question, re.IGNORECASE)
-        if m:
-            ctx.class_level = int(m.group(1) or m.group(2))
+        # Detect class level from question if not already specified (e.g. via CLI)
+        if ctx.class_level is None:
+            m = re.search(r'\bclass\s*(\d+)\b|\bकक्षा\s*(\d+)\b', ctx.question, re.IGNORECASE)
+            if m:
+                ctx.class_level = int(m.group(1) or m.group(2))
 
-        # Detect subject keywords
-        subj_map = {
-            "photosynthesis|plant|cell|tissue|animal|digestion|organism|nutrition|respiration|heredity|evolution|force|motion|gravity|energy|electricity|atom|molecule|chemical|acid|base|salt|matter|tissue": "science",
-            "triangle|algebra|geometry|polynomial|fraction|equation|circle|area|volume|number|factor|lcm|hcf|prime|coordinate": "mathematics",
-            "grammar|tense|story|poem|novel|chapter|comprehension|vocabulary|writing": "english",
-        }
-        q_lower = ctx.question.lower()
-        for pattern, subj in subj_map.items():
-            if re.search(pattern, q_lower):
-                ctx.subject = subj
-                break
+        # Detect subject keywords if not already specified (e.g. via CLI)
+        if ctx.subject is None:
+            subj_map = {
+                "photosynthesis|plant|cell|tissue|animal|digestion|organism|nutrition|respiration|heredity|evolution|force|motion|gravity|energy|electricity|atom|molecule|chemical|acid|base|salt|matter|tissue|newton|law|velocity|acceleration|inertia|प्रकाश संश्लेषण|पादप|कोशिका|ऊतक|बल|गति|ऊर्जा|नियम": "science",
+                "triangle|algebra|geometry|polynomial|fraction|equation|circle|area|volume|number|factor|lcm|hcf|prime|coordinate|त्रिभुज|बीजगणित|ज्यामिति|बहुपद|समीकरण": "mathematics",
+                "grammar|tense|story|poem|novel|chapter|comprehension|vocabulary|writing": "english",
+            }
+            q_lower = ctx.question.lower()
+            for pattern, subj in subj_map.items():
+                if re.search(pattern, q_lower):
+                    ctx.subject = subj
+                    break
 
         note = f"class={ctx.class_level or '?'} subj={ctx.subject or '?'} lang={ctx.language}"
         self._transition(AgentState.CLASSIFY_INTENT, note, time.time()-t)
 
     def _retrieve_local(self, ctx: AgentContext) -> None:
         t = time.time()
-        # FTS5 query — strip brackets/special chars that confuse FTS parser
-        safe_query = re.sub(r'[^\w\s\u0900-\u097f]', ' ', ctx.question)
-
         filters = ["cc.language = ?"]
-        params  = [ctx.language]
+        params: list = [ctx.language]
         if ctx.class_level:
-            filters.append("cc.class_level = ?"); params.append(ctx.class_level)
+            filters.append("cc.class_level = ?")
+            params.append(ctx.class_level)
         if ctx.subject:
-            filters.append("cc.subject = ?");     params.append(ctx.subject)
+            filters.append("cc.subject = ?")
+            params.append(ctx.subject.lower())
         where = " AND ".join(filters)
 
-        sql = f"""
-            SELECT cc.id, cc.class_level, cc.subject, cc.language,
-                   cc.curriculum, cc.chapter, cc.topic, cc.content,
-                   cc.source_ref, rank
-            FROM curriculum_fts
-            JOIN curriculum_content cc ON curriculum_fts.rowid = cc.rowid
-            WHERE curriculum_fts MATCH ?
-              AND {where}
-            ORDER BY rank
-            LIMIT ?
-        """
-        try:
-            rows = self.con.execute(sql, [safe_query] + params + [TOP_K]).fetchall()
+        fts_query = build_safe_fts_query(ctx.question)
+        rows = []
+        if fts_query:
+            sql = f"""
+                SELECT cc.id, cc.class_level, cc.subject, cc.language,
+                       cc.curriculum, cc.chapter, cc.topic, cc.content,
+                       cc.source_ref, rank
+                FROM curriculum_fts
+                JOIN curriculum_content cc ON curriculum_fts.rowid = cc.rowid
+                WHERE curriculum_fts MATCH ?
+                  AND {where}
+                ORDER BY rank
+                LIMIT ?
+            """
+            try:
+                rows = self.con.execute(sql, [fts_query] + params + [TOP_K]).fetchall()
+            except sqlite3.OperationalError:
+                rows = []
+
+        if rows:
             ctx.chunks = [dict(r) for r in rows]
-        except sqlite3.OperationalError:
-            # Fallback: individual keyword LIKE search
-            ctx.chunks = []
-            for word in safe_query.split()[:3]:
-                rows = self.con.execute(
-                    f"SELECT * FROM curriculum_content WHERE content LIKE ? AND language=? LIMIT 3",
-                    [f"%{word}%", ctx.language]
-                ).fetchall()
-                ctx.chunks.extend([dict(r) for r in rows if dict(r) not in ctx.chunks])
-            ctx.chunks = ctx.chunks[:TOP_K]
+        else:
+            # Fallback LIKE search respecting class, subject, language filters
+            tokens = [w for w in re.findall(r"[\w\u0900-\u097f]+", ctx.question) if len(w) > 1]
+            keywords = [t for t in tokens if t.lower() not in STOPWORDS] or tokens
+            like_clauses = []
+            like_params: list = [ctx.language]
+            if ctx.class_level:
+                like_params.append(ctx.class_level)
+            if ctx.subject:
+                like_params.append(ctx.subject.lower())
+
+            for kw in keywords[:5]:
+                like_clauses.append("(content LIKE ? OR topic LIKE ? OR chapter LIKE ?)")
+                like_params.extend([f"%{kw}%", f"%{kw}%", f"%{kw}%"])
+
+            fallback_where = " AND ".join(filters)
+            if like_clauses:
+                fallback_where += f" AND ({' OR '.join(like_clauses)})"
+
+            fallback_sql = f"SELECT * FROM curriculum_content WHERE {fallback_where} LIMIT ?"
+            like_params.append(TOP_K)
+            fallback_rows = self.con.execute(fallback_sql, like_params).fetchall()
+            ctx.chunks = [dict(r) for r in fallback_rows]
 
         self._transition(AgentState.RETRIEVE_LOCAL, f"{len(ctx.chunks)} chunk(s) found", time.time()-t)
 
@@ -388,6 +426,9 @@ def load_db() -> sqlite3.Connection:
 
 
 def load_llm() -> Llama:
+    if Llama is None:
+        print("[ERROR] llama-cpp-python not found. Run: pip install llama-cpp-python")
+        sys.exit(1)
     model_path_env = os.environ.get("MODEL_PATH")
     candidates = [pathlib.Path(model_path_env)] if model_path_env else DEFAULT_MODELS
     for p in candidates:
