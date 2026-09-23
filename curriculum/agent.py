@@ -73,7 +73,9 @@ STOPWORDS = {
     "what", "is", "are", "was", "were", "a", "an", "the", "in", "on", "of", "and", "or",
     "to", "for", "with", "by", "from", "how", "why", "who", "which", "where", "when",
     "can", "explain", "define", "tell", "me", "about", "give", "describe", "does", "do",
-    "kya", "hai", "ka", "ki", "ke", "ko", "se", "mein", "kisko", "kaise"
+    "kya", "hai", "ka", "ki", "ke", "ko", "se", "mein", "kisko", "kaise",
+    "क्या", "है", "हैं", "का", "की", "के", "को", "से", "में", "किसे", "कहते", "होता",
+    "होती", "होते", "बताइए", "समझाइए", "कहा", "जाता", "दिए", "और"
 }
 
 
@@ -168,9 +170,9 @@ class LearningAgent:
         # Detect subject keywords if not already specified (e.g. via CLI)
         if ctx.subject is None:
             subj_map = {
-                "photosynthesis|plant|cell|tissue|animal|digestion|organism|nutrition|respiration|heredity|evolution|force|motion|gravity|energy|electricity|atom|molecule|chemical|acid|base|salt|matter|tissue|newton|law|velocity|acceleration|inertia|प्रकाश संश्लेषण|पादप|कोशिका|ऊतक|बल|गति|ऊर्जा|नियम": "science",
-                "triangle|algebra|geometry|polynomial|fraction|equation|circle|area|volume|number|factor|lcm|hcf|prime|coordinate|त्रिभुज|बीजगणित|ज्यामिति|बहुपद|समीकरण": "mathematics",
-                "grammar|tense|story|poem|novel|chapter|comprehension|vocabulary|writing": "english",
+                "photosynthesis|plant|cell|tissue|animal|digestion|organism|nutrition|respiration|heredity|evolution|force|motion|gravity|energy|electricity|atom|molecule|chemical|acid|base|salt|matter|tissue|newton|law|velocity|acceleration|inertia|प्रकाश संश्लेषण|पादप|कोशिका|ऊतक|बल|गति|ऊर्जा|नियम|जड़त्व|गुरुत्वाकर्षण|त्वरण|संवेग|परमाणु|अणु|पदार्थ": "science",
+                "triangle|algebra|geometry|polynomial|fraction|equation|circle|area|volume|number|factor|lcm|hcf|prime|coordinate|त्रिभुज|बीजगणित|ज्यामिति|बहुपद|समीकरण|संख्या": "mathematics",
+                "grammar|tense|story|poem|novel|chapter|comprehension|vocabulary|writing|व्याकरण": "english",
             }
             q_lower = ctx.question.lower()
             for pattern, subj in subj_map.items():

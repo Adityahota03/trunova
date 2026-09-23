@@ -103,7 +103,9 @@ STOPWORDS = {
     "what", "is", "are", "was", "were", "a", "an", "the", "in", "on", "of", "and", "or",
     "to", "for", "with", "by", "from", "how", "why", "who", "which", "where", "when",
     "can", "explain", "define", "tell", "me", "about", "give", "describe", "does", "do",
-    "kya", "hai", "ka", "ki", "ke", "ko", "se", "mein", "kisko", "kaise"
+    "kya", "hai", "ka", "ki", "ke", "ko", "se", "mein", "kisko", "kaise",
+    "क्या", "है", "हैं", "का", "की", "के", "को", "से", "में", "किसे", "कहते", "होता",
+    "होती", "होते", "बताइए", "समझाइए", "कहा", "जाता", "दिए", "और"
 }
 
 
