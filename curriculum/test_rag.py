@@ -221,10 +221,13 @@ def load_model() -> Llama:
     if model_path_env:
         candidates = [pathlib.Path(model_path_env)]
     else:
-        candidates = DEFAULT_MODELS
+        candidates = list(DEFAULT_MODELS)
+        models_dir = BASE_DIR / "models"
+        if models_dir.exists():
+            candidates.extend(sorted(models_dir.glob("*.gguf")))
 
     for path in candidates:
-        if path.exists():
+        if path.exists() and path.is_file():
             cprint(Fore.CYAN, "MODEL", f"Loading: {path.name}")
             t0  = time.time()
             llm = Llama(model_path=str(path), n_ctx=N_CTX, n_gpu_layers=N_GPU_LAYERS, verbose=False)

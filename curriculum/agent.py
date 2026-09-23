@@ -460,9 +460,15 @@ def load_llm() -> Llama:
         print("[ERROR] llama-cpp-python not found. Run: pip install llama-cpp-python")
         sys.exit(1)
     model_path_env = os.environ.get("MODEL_PATH")
-    candidates = [pathlib.Path(model_path_env)] if model_path_env else DEFAULT_MODELS
+    if model_path_env:
+        candidates = [pathlib.Path(model_path_env)]
+    else:
+        candidates = list(DEFAULT_MODELS)
+        if MODELS_DIR.exists():
+            candidates.extend(sorted(MODELS_DIR.glob("*.gguf")))
+
     for p in candidates:
-        if p.exists():
+        if p.exists() and p.is_file():
             llm = Llama(model_path=str(p), n_ctx=N_CTX, n_gpu_layers=N_GPU_LAYERS, verbose=False)
             return llm
     print("[ERROR] No GGUF model found. Set MODEL_PATH env var or place model in curriculum/models/")
