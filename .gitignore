@@ -1,0 +1,42 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Large Model weights (GGUF, bin, safetensors - download locally via download_models.py)
+curriculum/models/
+models/
+*.gguf
+*.bin
+*.safetensors
+
+# Runtime outputs & sessions
+curriculum/output/saved_sessions.json
+curriculum/output/sync_queue.json
+
+# Environment variables & secrets
+.env
+.env.*
+*.key
+*.pem
+
+# IDE & editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
