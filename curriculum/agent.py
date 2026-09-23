@@ -21,6 +21,13 @@ Usage:
 import os
 import re
 import sys
+
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 import time
 import json
 import uuid
@@ -281,17 +288,27 @@ class LearningAgent:
 
     def _check_grounding(self, ctx: AgentContext) -> bool:
         t = time.time()
-        if not ctx.chunks:
+        if not ctx.chunks or not ctx.answer.strip():
             ctx.grounded, ctx.grounding_score = False, 0.0
         else:
-            stop = {"the","a","an","is","are","was","were","of","and","or","in","to","for","with","by"}
-            keywords = set()
+            context_words = set()
             for c in ctx.chunks:
-                keywords |= {w.lower().strip(".,;:") for w in c["content"].split() if len(w) > 4} - stop
-            answer_lower = ctx.answer.lower()
-            matched = sum(1 for w in keywords if w in answer_lower)
-            ctx.grounding_score = round(min(matched / max(len(keywords)*0.15, 1), 1.0), 2)
-            ctx.grounded = ctx.grounding_score >= 0.3
+                text = f"{c.get('content', '')} {c.get('topic', '')} {c.get('chapter', '')}"
+                context_words |= {
+                    w.lower() for w in re.findall(r"[\w\u0900-\u097f]+", text) if len(w) > 3
+                } - STOPWORDS
+
+            answer_words = {
+                w.lower() for w in re.findall(r"[\w\u0900-\u097f]+", ctx.answer) if len(w) > 3
+            } - STOPWORDS
+
+            if not answer_words:
+                ctx.grounded, ctx.grounding_score = True, 0.50
+            else:
+                matched = answer_words.intersection(context_words)
+                score = len(matched) / len(answer_words)
+                ctx.grounding_score = round(min(score, 1.0), 2)
+                ctx.grounded = (ctx.grounding_score >= 0.35) or (len(matched) >= 3 and ctx.grounding_score >= 0.25)
 
         note = f"score={ctx.grounding_score} → {'grounded ✓' if ctx.grounded else 'low confidence'}"
         self._transition(AgentState.CHECK_GROUNDING, note, time.time()-t)
@@ -325,11 +342,16 @@ class LearningAgent:
         }
         saves = []
         if SAVES_PATH.exists():
-            with open(SAVES_PATH) as f:
-                saves = json.load(f)
+            try:
+                with open(SAVES_PATH, encoding="utf-8") as f:
+                    saves = json.load(f)
+                if not isinstance(saves, list):
+                    saves = []
+            except Exception:
+                saves = []
         saves.append(record)
         SAVES_PATH.parent.mkdir(exist_ok=True)
-        with open(SAVES_PATH, "w") as f:
+        with open(SAVES_PATH, "w", encoding="utf-8") as f:
             json.dump(saves, f, indent=2, ensure_ascii=False)
         self._transition(AgentState.SAVE_ACTION, "saved locally", time.time()-t)
 
@@ -354,10 +376,16 @@ class LearningAgent:
         }
         queue = []
         if QUEUE_PATH.exists():
-            with open(QUEUE_PATH) as f:
-                queue = json.load(f)
+            try:
+                with open(QUEUE_PATH, encoding="utf-8") as f:
+                    queue = json.load(f)
+                if not isinstance(queue, list):
+                    queue = []
+            except Exception:
+                queue = []
         queue.append(entry)
-        with open(QUEUE_PATH, "w") as f:
+        QUEUE_PATH.parent.mkdir(exist_ok=True)
+        with open(QUEUE_PATH, "w", encoding="utf-8") as f:
             json.dump(queue, f, indent=2, ensure_ascii=False)
         self._transition(AgentState.QUEUE_ACTION, "queued for sync (FIFO)", time.time()-t)
 

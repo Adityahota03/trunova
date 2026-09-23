@@ -154,7 +154,7 @@ def write_manifest(records: list[dict]) -> None:
         "built_at":       datetime.now(timezone.utc).isoformat(),
         "content_version": CONTENT_VERSION,
     }
-    with open(MANIFEST, "w") as f:
+    with open(MANIFEST, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2)
     print(f"\n  SHA-256: {sha256}")
 

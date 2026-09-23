@@ -32,6 +32,13 @@ PROVE OFFLINE CAPABILITY: Run with airplane mode / Wi-Fi disabled.
 
 import os
 import sys
+
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 import time
 import re
 import sqlite3
@@ -254,34 +261,31 @@ def build_prompt(question: str, chunks: list[dict]) -> str:
 
 def check_grounding(answer: str, chunks: list[dict]) -> tuple[bool, float]:
     """
-    Simple keyword-based grounding check.
-    Counts how many key words from the retrieved chunks appear in the answer.
+    Checks whether key content terms in the generated answer are grounded in the retrieved chunks.
     Returns (is_grounded, confidence_score).
     """
-    if not chunks:
+    if not chunks or not answer.strip():
         return False, 0.0
 
-    # Collect key nouns/terms from chunks (crude but fast, no extra deps)
-    stop_words = {"the","a","an","is","are","was","were","of","and","or","in","to","for",
-                  "with","by","from","that","this","it","be","been","being","have","has",
-                  "had","do","does","did","will","would","could","should","may","might",
-                  "on","at","as","not","but","if","so","its","their","our","we","you","they",
-                  "he","she","i","my","your","his","her","what","which","who","when","where",
-                  "how","why","also","can","all","more","some","any","each","than","then",
-                  "into","through","during","before","after","above","below","between"}
-
-    all_words = set()
+    context_words = set()
     for c in chunks:
-        words = {w.lower().strip(".,;:()[]") for w in c["content"].split() if len(w) > 4}
-        all_words |= words - stop_words
+        text = f"{c.get('content', '')} {c.get('topic', '')} {c.get('chapter', '')}"
+        context_words |= {
+            w.lower() for w in re.findall(r"[\w\u0900-\u097f]+", text) if len(w) > 3
+        } - STOPWORDS
 
-    if not all_words:
-        return True, 0.5
+    answer_words = {
+        w.lower() for w in re.findall(r"[\w\u0900-\u097f]+", answer) if len(w) > 3
+    } - STOPWORDS
 
-    answer_lower = answer.lower()
-    matched = sum(1 for w in all_words if w in answer_lower)
-    score   = min(matched / max(len(all_words) * 0.15, 1), 1.0)
-    return score >= 0.3, round(score, 2)
+    if not answer_words:
+        return True, 0.50
+
+    matched = answer_words.intersection(context_words)
+    score = len(matched) / len(answer_words)
+    score_rounded = round(min(score, 1.0), 2)
+    is_grounded = (score_rounded >= 0.35) or (len(matched) >= 3 and score_rounded >= 0.25)
+    return is_grounded, score_rounded
 
 
 # ── Main RAG pipeline ─────────────────────────────────────────────────────────
